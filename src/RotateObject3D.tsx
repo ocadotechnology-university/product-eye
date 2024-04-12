@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import './App.css'
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
+import { useEffect } from 'react';
 
   
 const RotateObject3D = () => {
@@ -18,52 +19,54 @@ const RotateObject3D = () => {
   const camera = new THREE.PerspectiveCamera(fieldOfView, window.innerWidth / window.innerHeight, nearPlane, farPlane);
   const renderer = new THREE.WebGLRenderer();
 
-  camera.position.set(0, 0, 12);
+
+  useEffect(() => {
+    camera.position.set(0, 0, 12);
+      
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+        
+    const ambientLight = new THREE.AmbientLight( 0xffffff );
+    scene.add( ambientLight );
+
+    const loader = new OBJLoader();
+    let object3D: THREE.Object3D;
+    const mtlLoader = new MTLLoader();
+
     
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
-      
-  const ambientLight = new THREE.AmbientLight( 0xffffff );
-  scene.add( ambientLight );
-
-  const loader = new OBJLoader();
-  let object3D: THREE.Object3D;
-  const mtlLoader = new MTLLoader();
-
-  
-  mtlLoader.load(
-    '/apple.mtl',
-    (materials) => {
-      materials.preload();
-      loader.setMaterials(materials);
-      
-      loader.load(
-       '/apple.obj',
-       (object) => {
-        object3D = object;
-        scene.add(object);
-      })
-    }
-  );
-
-      
-  function handleMouseMove(event: MouseEvent) {
-    const mouseX = (event.clientX / window.innerWidth) * mouseXScaleFactor + mouseXOset;
-    rotationSpeed = mouseX * rotationSpeedFactor;
-  }
-
-  document.addEventListener('mousemove', handleMouseMove);
-
-  function animate() {
-    requestAnimationFrame(animate);
-    if (object3D) {
-        object3D.rotation.y += rotationSpeed;
+    mtlLoader.load(
+      '/apple.mtl',
+      (materials) => {
+        materials.preload();
+        loader.setMaterials(materials);
+        
+        loader.load(
+        '/apple.obj',
+        (object) => {
+          object3D = object;
+          scene.add(object);
+        })
       }
-    renderer.render(scene, camera);
-  }
-  
-  animate();
+    );
 
+        
+    function handleMouseMove(event: MouseEvent) {
+      const mouseX = (event.clientX / window.innerWidth) * mouseXScaleFactor + mouseXOset;
+      rotationSpeed = mouseX * rotationSpeedFactor;
+    }
+
+    document.addEventListener('mousemove', handleMouseMove);
+
+    function animate() {
+      requestAnimationFrame(animate);
+      if (object3D) {
+          object3D.rotation.y += rotationSpeed;
+        }
+      renderer.render(scene, camera);
+    }
+    
+    animate();
+  });
 
   return null;
 }
