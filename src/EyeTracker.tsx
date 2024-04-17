@@ -3,10 +3,13 @@ import './App.css'
 
 const EyeTracker = () => {
     const [clickCount, setClickCount] = useState([0, 0, 0, 0, 0]);
-    let totalClicks = 0;
+    const [totalClicks, setTotalClicks] = useState(0);
     const NUMBER_OF_DOTS = 5;
     const MAX_CLICKS = 12;
     const MAX_TOTAL_CLICKS = MAX_CLICKS * NUMBER_OF_DOTS;
+
+    let xprediction : number;
+    let yprediction : number;
 
     useEffect(() => {
         webgazer.setGazeListener(function(data, elapsedTime) {
@@ -24,9 +27,15 @@ const EyeTracker = () => {
         const newClickCount = [...clickCount];
         newClickCount[index]++;
         setClickCount(newClickCount);
-        
-        if (totalClicks == MAX_TOTAL_CLICKS) {
-            return;
+        setTotalClicks(totalClicks + 1);
+    };
+
+    const getVisibility = () => {
+        if (totalClicks >= MAX_TOTAL_CLICKS) {
+            return 'hidden';
+        }   
+        else {
+            return 'visible';
         }
     };
 
@@ -51,6 +60,7 @@ const EyeTracker = () => {
                     height: '20px',
                     backgroundColor: getDotColor(0),
                     borderRadius: '50%',
+                    visibility: getVisibility(),
                 }}
                 onClick={() => handleClick(0)}
             ></div>
@@ -64,6 +74,7 @@ const EyeTracker = () => {
                     height: '20px',
                     backgroundColor: getDotColor(1),
                     borderRadius: '50%',
+                    visibility: getVisibility(),
                 }}
                 onClick={() => handleClick(1)}
             ></div>
@@ -77,6 +88,7 @@ const EyeTracker = () => {
                     height: '20px',
                     backgroundColor: getDotColor(2),
                     borderRadius: '50%',
+                    visibility: getVisibility(),
                 }}
                 onClick={() => handleClick(2)}
             ></div>
@@ -90,6 +102,7 @@ const EyeTracker = () => {
                     height: '20px',
                     backgroundColor: getDotColor(3),
                     borderRadius: '50%',
+                    visibility: getVisibility(),
                 }}
                 onClick={() => handleClick(3)}
             ></div>
@@ -103,6 +116,7 @@ const EyeTracker = () => {
                     height: '20px',
                     backgroundColor: getDotColor(4),
                     borderRadius: '50%',
+                    visibility: getVisibility(),
                 }}
                 onClick={() => handleClick(4)}
             ></div>
