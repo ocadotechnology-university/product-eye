@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css'
 
 const EyeTracker = () => {
@@ -18,16 +18,18 @@ const EyeTracker = () => {
             }
             xprediction = data.x; //these x coordinates are relative to the viewport
             yprediction = data.y; //these y coordinates are relative to the viewport
-            console.log(elapsedTime); //elapsed time is based on time since begin was called
+            console.log(`(x,y)=(${xprediction},${yprediction}`); //elapsed time is based on time since begin was called
         }).begin();
       })
 
 
     const handleClick = (index: number) => {
-        const newClickCount = [...clickCount];
-        newClickCount[index]++;
-        setClickCount(newClickCount);
-        setTotalClicks(totalClicks + 1);
+        if (clickCount[index] < MAX_CLICKS) {
+            const newClickCount = [...clickCount];
+            newClickCount[index]++;
+            setClickCount(newClickCount);
+            setTotalClicks(totalClicks + 1);
+        }
     };
 
     const getVisibility = () => {
@@ -40,7 +42,7 @@ const EyeTracker = () => {
     };
 
     const getDotColor = (index: number) => {
-        if (clickCount[index] >= 12) {
+        if (clickCount[index] >= MAX_CLICKS) {
             return 'green';
         } else {
             return 'red';
