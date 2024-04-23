@@ -1,28 +1,26 @@
 import { useState, useEffect } from 'react';
 import './App.css'
+import { Coordinates } from './Coordinates';
 
 const EyeTracker = () => {
+    /*
     const [clickCount, setClickCount] = useState([0, 0, 0, 0, 0]);
     const [totalClicks, setTotalClicks] = useState(0);
     const NUMBER_OF_DOTS = 5;
     const MAX_CLICKS = 12;
     const MAX_TOTAL_CLICKS = MAX_CLICKS * NUMBER_OF_DOTS;
-
-    let xprediction : number;
-    let yprediction : number;
+    */
 
     useEffect(() => {
         webgazer.setGazeListener(function(data, elapsedTime) {
             if (data == null) {
                 return;
             }
-            xprediction = data.x; //these x coordinates are relative to the viewport
-            yprediction = data.y; //these y coordinates are relative to the viewport
-            console.log(`(x,y)=(${xprediction},${yprediction}`); //elapsed time is based on time since begin was called
+            Coordinates.setCurrentCoordinates(data.x, data.y);
         }).begin();
       })
 
-
+    /*
     const handleClick = (index: number) => {
         if (clickCount[index] < MAX_CLICKS) {
             const newClickCount = [...clickCount];
@@ -47,10 +45,10 @@ const EyeTracker = () => {
         } else {
             return 'red';
         }
-    };
+    };*/
 
 
-    return (
+    /*return (
         <>
             <div
                 style={{
@@ -123,7 +121,9 @@ const EyeTracker = () => {
                 onClick={() => handleClick(4)}
             ></div>
         </>
-    );
+    );*/
+
+    return null;
 };
 
 export default EyeTracker;

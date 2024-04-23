@@ -3,6 +3,7 @@ import './App.css'
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 import { useEffect } from 'react';
+import { Coordinates } from './Coordinates';
 
   
 const RotateObject3D = () => {
@@ -10,7 +11,7 @@ const RotateObject3D = () => {
   const fieldOfView = 45;
   const nearPlane = 0.1;
   const farPlane = 20;
-  let rotationSpeed = 0.01;
+  let rotationSpeed = 0.00;
   let rotationSpeedFactor = 0.03;
   const mouseXScaleFactor = 2;
   const mouseXOset = -1;
@@ -49,15 +50,24 @@ const RotateObject3D = () => {
       }
     );
 
-        
-    function handleMouseMove(event: MouseEvent) {
-      const mouseX = (event.clientX / window.innerWidth) * mouseXScaleFactor + mouseXOset;
-      rotationSpeed = mouseX * rotationSpeedFactor;
+    /*  
+    function handleMovement(event: MouseEvent) {
+      setRotationSpeed();
     }
 
-    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mousemove', handleMovement);
+    */
+
+    function setRotationSpeed() {
+      if (Coordinates.isSet) {
+        //const mouseX = (event.clientX / window.innerWidth) * mouseXScaleFactor + mouseXOset;
+        const mouseX = (Coordinates.x / window.innerWidth) * mouseXScaleFactor + mouseXOset;
+        rotationSpeed = mouseX * rotationSpeedFactor;
+      }
+    }
 
     function animate() {
+      setRotationSpeed();
       requestAnimationFrame(animate);
       if (object3D) {
           object3D.rotation.y += rotationSpeed;

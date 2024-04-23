@@ -5,8 +5,8 @@ import RotateObject3D from './RotateObject3D';
 const App = () => {
   return (
     <div>
-      <RotateObject3D />
       <EyeTracker />
+      <RotateObject3D />
     </div>
   )
 }
