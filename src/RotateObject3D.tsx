@@ -12,7 +12,7 @@ const RotateObject3D = () => {
   const nearPlane = 0.1;
   const farPlane = 20;
   let rotationSpeed = 0.00;
-  let rotationSpeedFactor = 0.03;
+  let rotationSpeedFactor = 0.3;
   const mouseXScaleFactor = 2;
   const mouseXOset = -1;
 
