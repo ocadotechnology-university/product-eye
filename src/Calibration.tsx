@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './App.css'
-import { CalibrationMode } from './CalibrationMode';
 
 interface EyeTrackerProps {
     onFinishCalibration: () => void;
