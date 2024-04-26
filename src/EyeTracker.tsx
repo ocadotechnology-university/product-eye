@@ -7,6 +7,7 @@ const EyeTracker = () => {
         webgazer.showFaceOverlay(false);
         webgazer.showFaceFeedbackBox(false);
         webgazer.showVideo(false);
+        webgazer.setRegression('ridge');
 
         webgazer.setGazeListener(function(data, elapsedTime) {
             if (data == null) {
