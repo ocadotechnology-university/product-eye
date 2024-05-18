@@ -4,6 +4,13 @@
   text-align: center;
 }
 
+#stage{
+  z-index: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

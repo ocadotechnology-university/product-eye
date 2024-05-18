@@ -12,7 +12,7 @@ const RotateObject3D = () => {
   const nearPlane = 0.1;
   const farPlane = 20;
   let rotationSpeed = 0.00;
-  let rotationSpeedFactor = 0.3;
+  let rotationSpeedFactor = 0.6;
   const mouseXScaleFactor = 2;
   const mouseXOset = -1;
 
@@ -24,8 +24,10 @@ const RotateObject3D = () => {
   useEffect(() => {
     camera.position.set(0, 0, 12);
       
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
+    renderer.setSize(window.innerWidth * 0.75, window.innerHeight * 0.75);
+    const mainStage = renderer.domElement;
+    mainStage.setAttribute("id", "stage");
+    document.body.appendChild(mainStage);
         
     const ambientLight = new THREE.AmbientLight( 0xffffff );
     scene.add( ambientLight );
@@ -70,7 +72,7 @@ const RotateObject3D = () => {
       setRotationSpeed();
       requestAnimationFrame(animate);
       if (object3D) {
-          object3D.rotation.y += rotationSpeed;
+          object3D.rotation.y -= rotationSpeed;
         }
       renderer.render(scene, camera);
     }

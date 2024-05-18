@@ -45,6 +45,7 @@ const Calibration: React.FC<EyeTrackerProps> = ({ onFinishCalibration }) => {
         <>
             <div
                 style={{
+                    cursor: 'pointer',
                     position: 'absolute',
                     top: '50%',
                     left: '50%',
@@ -59,6 +60,7 @@ const Calibration: React.FC<EyeTrackerProps> = ({ onFinishCalibration }) => {
             ></div>
             <div
                 style={{
+                    cursor: 'pointer',
                     position: 'absolute',
                     top: '80px',
                     left: '50%',
@@ -73,6 +75,7 @@ const Calibration: React.FC<EyeTrackerProps> = ({ onFinishCalibration }) => {
             ></div>
             <div
                 style={{
+                    cursor: 'pointer',
                     position: 'absolute',
                     bottom: '80px',
                     left: '50%',
@@ -87,6 +90,7 @@ const Calibration: React.FC<EyeTrackerProps> = ({ onFinishCalibration }) => {
             ></div>
             <div
                 style={{
+                    cursor: 'pointer',
                     position: 'absolute',
                     top: '50%',
                     left: '100px',
@@ -101,6 +105,7 @@ const Calibration: React.FC<EyeTrackerProps> = ({ onFinishCalibration }) => {
             ></div>
             <div
                 style={{
+                    cursor: 'pointer',
                     position: 'absolute',
                     top: '50%',
                     right: '100px',
