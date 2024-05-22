@@ -28,7 +28,7 @@ const EyeTracker = () => {
                 .showFaceOverlay(false)
                 .showFaceFeedbackBox(false)
                 .showPredictionPoints(true)
-                .showVideoPreview(false)
+                .showVideoPreview(true)
                 .applyKalmanFilter(true)
                 .begin();
         };

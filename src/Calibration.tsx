@@ -8,8 +8,8 @@ interface EyeTrackerProps {
 const Calibration: React.FC<EyeTrackerProps> = ({ onFinishCalibration }) => {
     const [clickCount, setClickCount] = useState([0, 0, 0, 0, 0]);
     const [totalClicks, setTotalClicks] = useState(0);
-    const NUMBER_OF_DOTS = 5;
-    const MAX_CLICKS = 12;
+    const NUMBER_OF_DOTS = 12;
+    const MAX_CLICKS = 0;
     const MAX_TOTAL_CLICKS = MAX_CLICKS * NUMBER_OF_DOTS;
 
 
