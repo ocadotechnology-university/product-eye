@@ -25,8 +25,6 @@ const App = () => {
       <main id="stageSection">
         {showCalibration && <RotateObject3D />}
       </main>
-      <aside className='asideRight'></aside>
-      <footer></footer>     
     </>
   );
 };
