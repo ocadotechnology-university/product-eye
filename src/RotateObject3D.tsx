@@ -15,7 +15,7 @@ const RotateObject3D = () => {
   let rotationSpeedVertical = 0.00;
   let rotationSpeedFactor = 0.6;
   const mouseXScaleFactor = 2;
-  const mouseYScaleFactor = 2;
+  const mouseYScaleFactor = 0.1;
   const mouseXOset = -1;
 
   const scene = new THREE.Scene();
@@ -76,8 +76,8 @@ const RotateObject3D = () => {
       setRotationSpeed();
       requestAnimationFrame(animate);
       if (object3D) {
+          object3D.rotation.x -= rotationSpeedVertical;
           object3D.rotation.y -= rotationSpeedHorizontal;
-          object3D.rotation.x += rotationSpeedHorizontal;
         }
       renderer.render(scene, camera);
     }
