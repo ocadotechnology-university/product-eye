@@ -78,7 +78,7 @@ header{
 }
 
 #stageSection{
-  grid-column: 3 / 13;
-  grid-row: 3 / 13;
+  grid-column: 1 / 13;
+  grid-row: 1 / 13;
 }
 

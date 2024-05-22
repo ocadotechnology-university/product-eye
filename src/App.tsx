@@ -15,13 +15,13 @@ const App = () => {
     <>
       <EyeTracker />
       {showCalibration && <Calibration onFinishCalibration={handleFinishCalibration} />}
-      <header><h2>Product-Eye</h2></header>
-      <aside className='asideLeft'>
+      {/* <header><h2>Product-Eye</h2></header> */}
+      {/* <aside className='asideLeft'>
         <h2>Products</h2>
         <div className='product'></div>
         <div className='product'></div>
         <div className='product'></div>
-      </aside>
+      </aside> */}
       <main id="stageSection">
         {showCalibration && <RotateObject3D />}
       </main>
