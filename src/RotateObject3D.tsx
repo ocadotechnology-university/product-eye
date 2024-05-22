@@ -11,9 +11,11 @@ const RotateObject3D = () => {
   const fieldOfView = 45;
   const nearPlane = 0.1;
   const farPlane = 20;
-  let rotationSpeed = 0.00;
+  let rotationSpeedHorizontal = 0.00;
+  let rotationSpeedVertical = 0.00;
   let rotationSpeedFactor = 0.6;
   const mouseXScaleFactor = 2;
+  const mouseYScaleFactor = 2;
   const mouseXOset = -1;
 
   const scene = new THREE.Scene();
@@ -64,7 +66,9 @@ const RotateObject3D = () => {
       if (Coordinates.isSet) {
         //const mouseX = (event.clientX / window.innerWidth) * mouseXScaleFactor + mouseXOset;
         const mouseX = (Coordinates.x / window.innerWidth) * mouseXScaleFactor + mouseXOset;
-        rotationSpeed = mouseX * rotationSpeedFactor;
+        const mouseY = (Coordinates.y / window.innerHeight) * mouseYScaleFactor + mouseXOset;
+        rotationSpeedHorizontal = mouseX * rotationSpeedFactor;
+        rotationSpeedVertical = mouseY * rotationSpeedFactor;
       }
     }
 
@@ -72,7 +76,8 @@ const RotateObject3D = () => {
       setRotationSpeed();
       requestAnimationFrame(animate);
       if (object3D) {
-          object3D.rotation.y -= rotationSpeed;
+          object3D.rotation.y -= rotationSpeedHorizontal;
+          object3D.rotation.x += rotationSpeedHorizontal;
         }
       renderer.render(scene, camera);
     }
