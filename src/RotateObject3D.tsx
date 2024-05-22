@@ -24,10 +24,10 @@ const RotateObject3D = () => {
   useEffect(() => {
     camera.position.set(0, 0, 12);
       
-    renderer.setSize(window.innerWidth * 0.75, window.innerHeight * 0.75);
-    const mainStage = renderer.domElement;
-    mainStage.setAttribute("id", "stage");
-    document.body.appendChild(mainStage);
+    const stageSection = document.getElementById("stageSection");
+    renderer.setSize(stageSection.offsetWidth, stageSection.offsetHeight);
+
+    stageSection.appendChild(renderer.domElement);
         
     const ambientLight = new THREE.AmbientLight( 0xffffff );
     scene.add( ambientLight );

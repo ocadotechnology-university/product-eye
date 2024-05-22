@@ -12,11 +12,22 @@ const App = () => {
   };
 
   return (
-    <div>
+    <>
       <EyeTracker />
       {showCalibration && <Calibration onFinishCalibration={handleFinishCalibration} />}
-      {!showCalibration && <RotateObject3D />}
-    </div>
+      <header><h2>Product-Eye</h2></header>
+      <aside className='asideLeft'>
+        <h2>Products</h2>
+        <div className='product'></div>
+        <div className='product'></div>
+        <div className='product'></div>
+      </aside>
+      <main id="stageSection">
+        {showCalibration && <RotateObject3D />}
+      </main>
+      <aside className='asideRight'></aside>
+      <footer></footer>     
+    </>
   );
 };
 

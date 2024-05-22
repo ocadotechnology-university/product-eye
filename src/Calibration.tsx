@@ -22,13 +22,13 @@ const Calibration: React.FC<EyeTrackerProps> = ({ onFinishCalibration }) => {
         }
     };
 
-    const getVisibility = () => {
+    const getDisplay = () => {
         if (totalClicks >= MAX_TOTAL_CLICKS) {
             onFinishCalibration();
-            return 'hidden';
+            return 'none';
         }   
         else {
-            return 'visible';
+            return 'absolute';
         }
     };
 
@@ -42,83 +42,38 @@ const Calibration: React.FC<EyeTrackerProps> = ({ onFinishCalibration }) => {
 
 
     return (
-        <>
-            <div
+        <section id='calibration' style={{display: getDisplay()}}>
+            <div className="calibrationDot"
                 style={{
-                    cursor: 'pointer',
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '20px',
-                    height: '20px',
-                    backgroundColor: getDotColor(0),
-                    borderRadius: '50%',
-                    visibility: getVisibility(),
+                    backgroundColor: getDotColor(0)
                 }}
                 onClick={() => handleClick(0)}
             ></div>
-            <div
+            <div className="calibrationDot"
                 style={{
-                    cursor: 'pointer',
-                    position: 'absolute',
-                    top: '80px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    width: '20px',
-                    height: '20px',
-                    backgroundColor: getDotColor(1),
-                    borderRadius: '50%',
-                    visibility: getVisibility(),
+                    backgroundColor: getDotColor(1)
                 }}
                 onClick={() => handleClick(1)}
             ></div>
-            <div
+            <div className="calibrationDot"
                 style={{
-                    cursor: 'pointer',
-                    position: 'absolute',
-                    bottom: '80px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    width: '20px',
-                    height: '20px',
-                    backgroundColor: getDotColor(2),
-                    borderRadius: '50%',
-                    visibility: getVisibility(),
+                    backgroundColor: getDotColor(2)
                 }}
                 onClick={() => handleClick(2)}
             ></div>
-            <div
+            <div className="calibrationDot"
                 style={{
-                    cursor: 'pointer',
-                    position: 'absolute',
-                    top: '50%',
-                    left: '100px',
-                    transform: 'translateY(-50%)',
-                    width: '20px',
-                    height: '20px',
-                    backgroundColor: getDotColor(3),
-                    borderRadius: '50%',
-                    visibility: getVisibility(),
+                    backgroundColor: getDotColor(3)
                 }}
                 onClick={() => handleClick(3)}
             ></div>
-            <div
+            <div className="calibrationDot"
                 style={{
-                    cursor: 'pointer',
-                    position: 'absolute',
-                    top: '50%',
-                    right: '100px',
-                    transform: 'translateY(-50%)',
-                    width: '20px',
-                    height: '20px',
-                    backgroundColor: getDotColor(4),
-                    borderRadius: '50%',
-                    visibility: getVisibility(),
+                    backgroundColor: getDotColor(4)
                 }}
                 onClick={() => handleClick(4)}
             ></div>
-        </>
+        </section>
     );
 };
 
