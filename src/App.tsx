@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import './App.css';
 import EyeTracker from './EyeTracker';
 import RotateObject3D from './RotateObject3D';
 import Calibration from './Calibration';
-import logo from './assets/logo.png'
+
+import './App.css';
+import { Aside, Button, Header, Product, ProductSpan} from './styles';
 
 const App = () => {
   const [showCalibration, setShowCalibration] = useState(true);
@@ -18,29 +19,28 @@ const App = () => {
       {showCalibration && <Calibration onFinishCalibration={handleFinishCalibration} />}
       {!showCalibration && <RotateObject3D />}
 
-      <aside className='asideLeft'>
-        <header className='logoBar'>
-          <img src={logo} className='logo-img' />
-          <h1 className='logo'>Product-Eye</h1>
-        </header>
+      <Aside>
+        <Header>
+          <h1>Product-Eye</h1>
+        </Header>
 
-        <section className='productsBar'>
+        <section>
           <h2>Products</h2>
-          <div className='product'>
-            <span className='productSpan'></span>
-          </div>
-          <div className='product'>
-            <span className='productSpan'></span>
-          </div>
-          <div className='product'>
-            <span className='productSpan'></span>
-          </div>
+          <Product>
+            <ProductSpan></ProductSpan>
+          </Product>
+          <Product>
+            <ProductSpan></ProductSpan>
+          </Product>
+          <Product>
+            <ProductSpan></ProductSpan>
+          </Product>
         </section>
 
-        <footer className='footer'>
-          <button>About us</button>
+        <footer style={{marginTop: "auto"}}>
+          <Button>About us</Button>
         </footer>
-      </aside>
+      </Aside>
     </>
   );
 };

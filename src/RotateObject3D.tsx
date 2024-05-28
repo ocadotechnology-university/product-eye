@@ -21,11 +21,13 @@ const RotateObject3D = () => {
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(fieldOfView, window.innerWidth / window.innerHeight, nearPlane, farPlane);
   const renderer = new THREE.WebGLRenderer();
+  const backgroundColor = "#242424";
 
 
   useEffect(() => {
     camera.position.set(0, 0, 12);
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(backgroundColor);
 
     document.body.appendChild(renderer.domElement);
         
