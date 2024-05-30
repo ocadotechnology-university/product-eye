@@ -16,7 +16,7 @@ const Calibration: React.FC<EyeTrackerProps> = ({ onFinishCalibration }) => {
 
     const handleClick = (index: number) => {
         if (clickCount[index] < MAX_CLICKS) {
-            const newClickCount = [...clickCount];
+            const newClickCount = {...clickCount, [index]: clickCount[index]++}
             newClickCount[index]++;
             setClickCount(newClickCount);
             setTotalClicks(totalClicks + 1);
