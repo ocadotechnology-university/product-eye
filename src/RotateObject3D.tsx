@@ -7,23 +7,24 @@ import { Coordinates } from './Coordinates';
 
 const fieldOfView = 45;
 const nearPlane = 0.1;
-const farPlane = 20;
+const farPlane = 1000;
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(fieldOfView, window.innerWidth / window.innerHeight, nearPlane, farPlane);
 const renderer = new THREE.WebGLRenderer();
-const backgroundColor = "#242424";
+const backgroundColor = "#808080";
 
-const RotateObject3D = () => {
+const RotateObject3D = ( {selectedFileName }: { selectedFileName : string } ) => {
   let xSpeed = 0.00;
   let ySpeed = 0.00;
   let zSpeed = 0.00;
   let rotationSpeedFactor = 0.2;
   const mouseScaleFactor= 2;
   const mouseXOset = -1;
-
+  console.log(selectedFileName );
   useEffect(() => {
-    camera.position.set(0, 0, 12);
+    
+    camera.position.set(0, 0, 15);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(backgroundColor);
 
@@ -36,15 +37,18 @@ const RotateObject3D = () => {
     let object3D: THREE.Object3D;
     const mtlLoader = new MTLLoader();
 
+    let mtlFileName = `./${selectedFileName }.mtl`; 
+    let objFileName = `./${selectedFileName }.obj`;
+
     
     mtlLoader.load(
-      '/apple.mtl',
+      mtlFileName,
       (materials) => {
         materials.preload();
         loader.setMaterials(materials);
         
         loader.load(
-        '/apple.obj',
+          objFileName,
         (object) => {
           object3D = object;
           scene.add(object);
@@ -92,7 +96,7 @@ const RotateObject3D = () => {
     }
     
     animate();
-  });
+  }, [selectedFileName ]);
 
   return null;
 }

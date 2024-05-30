@@ -63,9 +63,3 @@ export const Product = styled.div`
         background: transparent;
     }
 `;
-
-export const ScrollableContainer = styled.div`
-    flex: 1;
-    overflow-y: auto; /* Enable vertical scrolling */
-    padding: 10px;
-`;

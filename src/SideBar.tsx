@@ -1,19 +1,18 @@
 import './App.css';
-import { Aside, Header, Product, ProductSpan, ScrollableContainer } from './styles';
+import { Aside, Header, Product, ProductSpan } from './styles';
 
 
-const renderProducts = (products: string[]) => {
+const renderProducts = (products: { productName: string; fileName: string }[], onProductSelect: (arg0: string) => void) => {
   return products.map((product) => {
     return (
-      <Product>
-        <ProductSpan>{product}</ProductSpan>
+      <Product key={product.fileName} onClick={() => onProductSelect(product.fileName)}>
+        <ProductSpan>{product.productName}</ProductSpan>
       </Product>
     );
   });
 }
 
-
-const SideBar = ({ products }: { products: string[] }) => {
+const SideBar = ({ products, onProductSelect }: { products: { productName: string; fileName: string }[], onProductSelect: (arg0: string) => void }) => {
   return (
     <>
       <Aside>
@@ -23,13 +22,12 @@ const SideBar = ({ products }: { products: string[] }) => {
 
         <section>
           <h2>Products</h2>
-          <ScrollableContainer>
-            {renderProducts(products)}
-          </ScrollableContainer>
+            {renderProducts(products, onProductSelect)}
         </section>
       </Aside>
     </>
   );
 };
+
 
 export default SideBar;

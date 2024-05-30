@@ -8,12 +8,12 @@ const products = [
         "fileName": "vase"
     },
     {
-        "productName": "Glasses",
-        "fileName": "glasses"
+        "productName": "Tree",
+        "fileName": "tree"
     },
     {
-        "productName": "Cup",
-        "fileName": "cup"
+        "productName": "Pineapple",
+        "fileName": "pineapple2"
     },
     {
         "productName": "Bottle",
