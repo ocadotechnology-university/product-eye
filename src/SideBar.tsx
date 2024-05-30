@@ -1,7 +1,19 @@
 import './App.css';
-import { Aside, Button, Header, Product, ProductSpan} from './styles';
+import { Aside, Header, Product, ProductSpan, ScrollableContainer } from './styles';
 
-const SideBar = () => {
+
+const renderProducts = (products: string[]) => {
+  return products.map((product) => {
+    return (
+      <Product>
+        <ProductSpan>{product}</ProductSpan>
+      </Product>
+    );
+  });
+}
+
+
+const SideBar = ({ products }: { products: string[] }) => {
   return (
     <>
       <Aside>
@@ -11,15 +23,9 @@ const SideBar = () => {
 
         <section>
           <h2>Products</h2>
-          <Product>
-            <ProductSpan></ProductSpan>
-          </Product>
-          <Product>
-            <ProductSpan></ProductSpan>
-          </Product>
-          <Product>
-            <ProductSpan></ProductSpan>
-          </Product>
+          <ScrollableContainer>
+            {renderProducts(products)}
+          </ScrollableContainer>
         </section>
       </Aside>
     </>
@@ -27,9 +33,3 @@ const SideBar = () => {
 };
 
 export default SideBar;
-
-/* 
-        <footer style={{marginTop: "auto"}}>
-          <Button>About us</Button>
-        </footer>
-*/
