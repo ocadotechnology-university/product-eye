@@ -1,8 +1,10 @@
 import { useState } from 'react';
-import './App.css';
 import EyeTracker from './EyeTracker';
 import RotateObject3D from './RotateObject3D';
 import Calibration from './Calibration';
+import SideBar from './SideBar';
+
+import './App.css';
 
 const App = () => {
   const [showCalibration, setShowCalibration] = useState(true);
@@ -15,18 +17,11 @@ const App = () => {
     <>
       <EyeTracker />
       {showCalibration && <Calibration onFinishCalibration={handleFinishCalibration} />}
-      {/* <header><h2>Product-Eye</h2></header> */}
-      {/* <aside className='asideLeft'>
-        <h2>Products</h2>
-        <div className='product'></div>
-        <div className='product'></div>
-        <div className='product'></div>
-      </aside> */}
-      <main id="stageSection">
-        {showCalibration && <RotateObject3D />}
-      </main>
+      {!showCalibration && <RotateObject3D />}
+      {!showCalibration && <SideBar />}
     </>
   );
 };
 
 export default App;
+

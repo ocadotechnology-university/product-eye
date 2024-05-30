@@ -5,31 +5,29 @@ import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 import { useEffect } from 'react';
 import { Coordinates } from './Coordinates';
 
-  
+const fieldOfView = 45;
+const nearPlane = 0.1;
+const farPlane = 20;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(fieldOfView, window.innerWidth / window.innerHeight, nearPlane, farPlane);
+const renderer = new THREE.WebGLRenderer();
+const backgroundColor = "#242424";
+
 const RotateObject3D = () => {
-  
-  const fieldOfView = 45;
-  const nearPlane = 0.1;
-  const farPlane = 20;
-  let rotationSpeedHorizontal = 0.00;
-  let rotationSpeedVertical = 0.00;
-  let rotationSpeedFactor = 0.6;
-  const mouseXScaleFactor = 2;
-  const mouseYScaleFactor = 0.1;
+  let xSpeed = 0.00;
+  let ySpeed = 0.00;
+  let zSpeed = 0.00;
+  let rotationSpeedFactor = 0.2;
+  const mouseScaleFactor= 2;
   const mouseXOset = -1;
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(fieldOfView, window.innerWidth / window.innerHeight, nearPlane, farPlane);
-  const renderer = new THREE.WebGLRenderer();
-
 
   useEffect(() => {
     camera.position.set(0, 0, 12);
-      
-    const stageSection = document.getElementById("stageSection");
-    renderer.setSize(stageSection.offsetWidth, stageSection.offsetHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(backgroundColor);
 
-    stageSection.appendChild(renderer.domElement);
+    document.body.appendChild(renderer.domElement);
         
     const ambientLight = new THREE.AmbientLight( 0xffffff );
     scene.add( ambientLight );
@@ -54,30 +52,41 @@ const RotateObject3D = () => {
       }
     );
 
-    /*  
-    function handleMovement(event: MouseEvent) {
-      setRotationSpeed();
+    const screenToCartesianCoordinates = (screenX: number, screenY: number) => {
+      const cartesionX = screenX - window.innerWidth/2;
+      const cartesionY = window.innerHeight/2 - screenY;
+      return {x: cartesionX, y: cartesionY};
     }
 
-    document.addEventListener('mousemove', handleMovement);
-    */
+    const twoDimensionalToThreeDimensional = (x: number, y: number) => {
+      const radianPhi = y * Math.PI / 180;
+      const radianTheta = x * Math.PI / 180;
 
-    function setRotationSpeed() {
+      const xEye = Math.cos(radianTheta) * Math.cos(radianPhi);
+      const yEye = Math.sin(radianPhi);
+      const zEye = Math.sin(radianTheta) * Math.cos(radianPhi);
+
+      xSpeed = xEye * rotationSpeedFactor;
+      ySpeed = yEye * rotationSpeedFactor;
+      zSpeed = zEye * rotationSpeedFactor;
+    }
+
+    const setRotationSpeed = () => {
       if (Coordinates.isSet) {
-        //const mouseX = (event.clientX / window.innerWidth) * mouseXScaleFactor + mouseXOset;
-        const mouseX = (Coordinates.x / window.innerWidth) * mouseXScaleFactor + mouseXOset;
-        const mouseY = (Coordinates.y / window.innerHeight) * mouseYScaleFactor + mouseXOset;
-        rotationSpeedHorizontal = mouseX * rotationSpeedFactor;
-        rotationSpeedVertical = mouseY * rotationSpeedFactor;
+        const {x: xCoord, y: yCoord} = screenToCartesianCoordinates(Coordinates.x, Coordinates.y);
+        const mouseX: number = xCoord;
+        const mouseY: number = yCoord;
+        twoDimensionalToThreeDimensional(mouseX * mouseScaleFactor + mouseXOset, mouseY * mouseScaleFactor);
       }
     }
 
-    function animate() {
+    const animate = () => {
       setRotationSpeed();
       requestAnimationFrame(animate);
       if (object3D) {
-          object3D.rotation.x -= rotationSpeedVertical;
-          object3D.rotation.y -= rotationSpeedHorizontal;
+          object3D.rotation.x -= xSpeed;
+          object3D.rotation.y -= ySpeed;
+          object3D.rotation.z -= zSpeed;
         }
       renderer.render(scene, camera);
     }
