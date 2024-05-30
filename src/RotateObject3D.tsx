@@ -5,21 +5,19 @@ import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 import { useEffect } from 'react';
 import { Coordinates } from './Coordinates';
 
+const fieldOfView = 45;
+const nearPlane = 0.1;
+const farPlane = 20;
+const mouseXScaleFactor = 2;
+const mouseXOset = -1;
   
 const RotateObject3D = () => {
-  
-  const fieldOfView = 45;
-  const nearPlane = 0.1;
-  const farPlane = 20;
   let rotationSpeed = 0.00;
   let rotationSpeedFactor = 0.3;
-  const mouseXScaleFactor = 2;
-  const mouseXOset = -1;
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(fieldOfView, window.innerWidth / window.innerHeight, nearPlane, farPlane);
   const renderer = new THREE.WebGLRenderer();
-
 
   useEffect(() => {
     camera.position.set(0, 0, 12);
