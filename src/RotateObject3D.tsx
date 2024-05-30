@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import './App.css'
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { Coordinates } from './Coordinates';
 
 const fieldOfView = 45;
@@ -24,6 +24,7 @@ const RotateObject3D = ( {selectedFileName }: { selectedFileName : string } ) =>
   
   
   useEffect(() => {
+    scene.clear();
     
     camera.position.set(0, 0, 10);
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -39,10 +40,11 @@ const RotateObject3D = ( {selectedFileName }: { selectedFileName : string } ) =>
     let object3D: THREE.Object3D;
     const mtlLoader = new MTLLoader();
 
+    
     let mtlFileName = `./${selectedFileName }.mtl`; 
     let objFileName = `./${selectedFileName }.obj`;
 
-    
+
     mtlLoader.load(
       mtlFileName,
       (materials) => {
