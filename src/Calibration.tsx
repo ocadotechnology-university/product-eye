@@ -6,7 +6,7 @@ interface EyeTrackerProps {
   }
 
 const NUMBER_OF_DOTS = 5;
-const MAX_CLICKS = 12;
+const MAX_CLICKS = 1;
 const MAX_TOTAL_CLICKS = MAX_CLICKS * NUMBER_OF_DOTS;
 
 

@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import './App.css'
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Coordinates } from './Coordinates';
 
 const fieldOfView = 45;
@@ -21,12 +21,14 @@ const RotateObject3D = ( {selectedFileName }: { selectedFileName : string } ) =>
   let rotationSpeedFactor = 0.2;
   const mouseScaleFactor= 2;
   const mouseXOset = -1;
-  console.log(selectedFileName );
+  
+  
   useEffect(() => {
     
-    camera.position.set(0, 0, 15);
+    camera.position.set(0, 0, 10);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(backgroundColor);
+    
 
     document.body.appendChild(renderer.domElement);
         
@@ -52,6 +54,7 @@ const RotateObject3D = ( {selectedFileName }: { selectedFileName : string } ) =>
         (object) => {
           object3D = object;
           scene.add(object);
+          updateCameraToFitObject(camera, object);
         })
       }
     );
@@ -83,6 +86,22 @@ const RotateObject3D = ( {selectedFileName }: { selectedFileName : string } ) =>
         twoDimensionalToThreeDimensional(mouseX * mouseScaleFactor + mouseXOset, mouseY * mouseScaleFactor);
       }
     }
+
+    const updateCameraToFitObject = (camera: THREE.PerspectiveCamera, object: THREE.Object3D<THREE.Object3DEventMap>) => {
+      const box = new THREE.Box3().setFromObject(object);
+      const size = box.getSize(new THREE.Vector3()).length();
+      const center = box.getCenter(new THREE.Vector3());
+
+      const halfSizeToFitOnScreen = size * 0.5;
+      const halfFovY = THREE.MathUtils.degToRad(camera.fov * 0.5);
+      const distance = halfSizeToFitOnScreen / Math.tan(halfFovY);
+
+      const direction = new THREE.Vector3().subVectors(camera.position, center).normalize();
+      camera.position.copy(direction.multiplyScalar(distance).add(center));
+
+      camera.lookAt(center);
+    };
+    
 
     const animate = () => {
       setRotationSpeed();
