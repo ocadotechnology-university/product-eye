@@ -3,21 +3,24 @@ import { Coordinates } from './Coordinates';
 
 const EyeTracker = () => {
     useEffect(() => {
-        /*
-        // OLD CODE
-        await webgazer.setRegression('ridge');
-        await webgazer.saveDataAcrossSessions(true);
-        webgazer.showFaceOverlay(false);
-        webgazer.showFaceFeedbackBox(false);
-        webgazer.showVideo(false);
+        webgazer.showVideoPreview(true)
+        webgazer
+        .setRegression('ridge')
+        .saveDataAcrossSessions(true)
+        .showFaceOverlay(false)
+        .showFaceFeedbackBox(true)
+        .showPredictionPoints(true)
+        .applyKalmanFilter(true)
 
         webgazer.setGazeListener((data, elapsedTime) => {
             if (data == null) return;
             Coordinates.setCurrentCoordinates(data.x, data.y);
         }).begin();
-        */
-
-        webgazer.setRegression('ridge') /* currently must set regression and tracker */
+        
+        
+        /*
+        // NEW CODE
+        webgazer.setRegression('ridge')
         //.setTracker('clmtrackr')
         .setGazeListener(function(data, clock) {
             if (data == null) return;
@@ -30,6 +33,7 @@ const EyeTracker = () => {
         .showVideoPreview(true)
         .applyKalmanFilter(true)
         .begin();
+        */
 
     }, []); // Empty dependency array to run once on mount
 
