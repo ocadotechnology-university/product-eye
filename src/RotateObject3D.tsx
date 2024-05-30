@@ -14,22 +14,22 @@ const RotateObject3D = () => {
   let xSpeed = 0.00;
   let ySpeed = 0.00;
   let zSpeed = 0.00;
-  let rotationSpeedFactor = 0.6;
+  let rotationSpeedFactor = 0.2;
   const mouseScaleFactor= 2;
   const mouseXOset = -1;
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(fieldOfView, window.innerWidth / window.innerHeight, nearPlane, farPlane);
   const renderer = new THREE.WebGLRenderer();
+  const backgroundColor = "#242424";
 
 
   useEffect(() => {
     camera.position.set(0, 0, 12);
-      
-    const stageSection = document.getElementById("stageSection");
-    renderer.setSize(stageSection.offsetWidth, stageSection.offsetHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(backgroundColor);
 
-    stageSection.appendChild(renderer.domElement);
+    document.body.appendChild(renderer.domElement);
         
     const ambientLight = new THREE.AmbientLight( 0xffffff );
     scene.add( ambientLight );
