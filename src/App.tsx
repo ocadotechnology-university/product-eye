@@ -36,13 +36,15 @@ const App = () => {
             <ProductSpan></ProductSpan>
           </Product>
         </section>
-
-        <footer style={{marginTop: "auto"}}>
-          <Button>About us</Button>
-        </footer>
       </Aside>
     </>
   );
 };
 
 export default App;
+
+/* 
+        <footer style={{marginTop: "auto"}}>
+          <Button>About us</Button>
+        </footer>
+*/

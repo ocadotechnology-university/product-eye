@@ -18,7 +18,7 @@ export const Aside = styled.aside`
     width: 20%;
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     background-color: #131313;
     padding: 20px;
     text-align: center;
