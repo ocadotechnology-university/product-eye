@@ -34,7 +34,9 @@ export const Header = styled.header`
 `;
 
 export const ProductSpan = styled.span`
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: #131313;
     width: 100%;
     height: 100%;
@@ -53,6 +55,9 @@ export const Product = styled.div`
     position: relative;
     z-index: 2;
     padding: 3px;
+    justify-content: center;
+    align-items: center;
+
 
     &:hover ${ProductSpan} {
         background: transparent;
