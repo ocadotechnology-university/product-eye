@@ -5,24 +5,22 @@ import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 import { useEffect } from 'react';
 import { Coordinates } from './Coordinates';
 
-  
+const fieldOfView = 45;
+const nearPlane = 0.1;
+const farPlane = 20;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(fieldOfView, window.innerWidth / window.innerHeight, nearPlane, farPlane);
+const renderer = new THREE.WebGLRenderer();
+const backgroundColor = "#242424";
+
 const RotateObject3D = () => {
-  
-  const fieldOfView = 45;
-  const nearPlane = 0.1;
-  const farPlane = 20;
   let xSpeed = 0.00;
   let ySpeed = 0.00;
   let zSpeed = 0.00;
   let rotationSpeedFactor = 0.2;
   const mouseScaleFactor= 2;
   const mouseXOset = -1;
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(fieldOfView, window.innerWidth / window.innerHeight, nearPlane, farPlane);
-  const renderer = new THREE.WebGLRenderer();
-  const backgroundColor = "#242424";
-
 
   useEffect(() => {
     camera.position.set(0, 0, 12);
@@ -53,14 +51,6 @@ const RotateObject3D = () => {
         })
       }
     );
-
-    /*  
-    function handleMovement(event: MouseEvent) {
-      setRotationSpeed();
-    }
-
-    document.addEventListener('mousemove', handleMovement);
-    */
 
     const screenToCartesianCoordinates = (screenX: number, screenY: number) => {
       const cartesionX = screenX - window.innerWidth/2;
