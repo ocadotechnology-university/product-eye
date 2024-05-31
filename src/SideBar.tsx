@@ -1,5 +1,6 @@
 import './App.css';
 import { Aside, Header, Product, ProductSpan } from './styles';
+import { Scrollbar } from 'react-scrollbars-custom';
 
 
 const renderProducts = (products: { productName: string; fileName: string }[], onProductSelect: (arg0: string) => void) => {
@@ -20,10 +21,10 @@ const SideBar = ({ products, onProductSelect }: { products: { productName: strin
           <h1>Product-Eye</h1>
         </Header>
 
-        <section>
-          <h2>Products</h2>
-            {renderProducts(products, onProductSelect)}
-        </section>
+        <h2>Products</h2>
+        <Scrollbar style={{ flex: 1, width: "100%", height: "100%" }}>
+          {renderProducts(products, onProductSelect)}
+        </Scrollbar>
       </Aside>
     </>
   );
