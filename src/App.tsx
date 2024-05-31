@@ -4,11 +4,7 @@ import RotateObject3D from './RotateObject3D';
 import Calibration from './Calibration';
 import SideBar from './SideBar';
 import products from './products';
-
 import './App.css';
-
-const productNames = products.map((product) => product.productName);
-const productFileNames = products.map((product) => product.fileName);
 
 const App = () => {
   const [showCalibration, setShowCalibration] = useState(true);
