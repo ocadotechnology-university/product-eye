@@ -4,25 +4,25 @@ import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 import { useEffect } from 'react';
 import { Coordinates } from './Coordinates';
+import CoordinateTransformer  from './CoordinateTransformer';
 
 const fieldOfView = 45;
 const nearPlane = 0.1;
 const farPlane = 1000;
+
+const rotationSpeedFactor = 0.2;
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(fieldOfView, window.innerWidth / window.innerHeight, nearPlane, farPlane);
 const renderer = new THREE.WebGLRenderer();
 const backgroundColor = "#808080";
 
+
 const RotateObject3D = ( {selectedFileName }: { selectedFileName : string } ) => {
   let xSpeed = 0.00;
   let ySpeed = 0.00;
   let zSpeed = 0.00;
-  let rotationSpeedFactor = 0.2;
-  const mouseScaleFactor= 2;
-  const mouseXOset = -1;
-  
-  
+
   useEffect(() => {
     scene.clear();
     
@@ -61,31 +61,15 @@ const RotateObject3D = ( {selectedFileName }: { selectedFileName : string } ) =>
       }
     );
 
-    const screenToCartesianCoordinates = (screenX: number, screenY: number) => {
-      const cartesionX = screenX - window.innerWidth/2;
-      const cartesionY = window.innerHeight/2 - screenY;
-      return {x: cartesionX, y: cartesionY};
-    }
-
-    const twoDimensionalToThreeDimensional = (x: number, y: number) => {
-      const radianPhi = y * Math.PI / 180;
-      const radianTheta = x * Math.PI / 180;
-
-      const xEye = Math.cos(radianTheta) * Math.cos(radianPhi);
-      const yEye = Math.sin(radianPhi);
-      const zEye = Math.sin(radianTheta) * Math.cos(radianPhi);
-
-      xSpeed = xEye * rotationSpeedFactor;
-      ySpeed = yEye * rotationSpeedFactor;
-      zSpeed = zEye * rotationSpeedFactor;
-    }
-
     const setRotationSpeed = () => {
       if (Coordinates.isSet) {
-        const {x: xCoord, y: yCoord} = screenToCartesianCoordinates(Coordinates.x, Coordinates.y);
-        const mouseX: number = xCoord;
-        const mouseY: number = yCoord;
-        twoDimensionalToThreeDimensional(mouseX * mouseScaleFactor + mouseXOset, mouseY * mouseScaleFactor);
+        const {x: xCoord, y: yCoord} = CoordinateTransformer.screenToCartesianCoordinates(Coordinates.x, Coordinates.y,
+                                                              window.innerWidth, window.innerHeight);
+        const {xSpeed: x, ySpeed: y, zSpeed: z} = CoordinateTransformer.twoDimensionalToThreeDimensional(
+                                                              xCoord, yCoord, rotationSpeedFactor);
+        xSpeed = x;
+        ySpeed = y;
+        zSpeed = z;
       }
     }
 
