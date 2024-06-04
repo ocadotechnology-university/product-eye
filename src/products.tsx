@@ -4,16 +4,16 @@ const products = [
         "fileName": "apple"
     },
     {
-        "productName": "Vase",
-        "fileName": "vase"
+        "productName": "Man",
+        "fileName": "Man"
     },
     {
         "productName": "Tree",
         "fileName": "tree"
     },
     {
-        "productName": "Pineapple",
-        "fileName": "pineapple2"
+        "productName": "forklift",
+        "fileName": "forklift"
     },
     {
         "productName": "Bottle",
