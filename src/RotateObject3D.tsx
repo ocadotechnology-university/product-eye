@@ -4,37 +4,38 @@ import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 import { useEffect } from 'react';
 import { Coordinates } from './Coordinates';
-import CoordinateTransformer  from './CoordinateTransformer';
+import CoordinatesHandler  from './CoordinatesHandler';
 
 const fieldOfView = 45;
 const nearPlane = 0.1;
 const farPlane = 1000;
 
-const rotationSpeedFactor = 0.2;
+const R = 12;
+const rotationSpeedFactor = 0.01;
+const coordinateScaleFactor = 0.22;
+const aspectRatio = window.innerWidth / window.innerHeight;
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(fieldOfView, window.innerWidth / window.innerHeight, nearPlane, farPlane);
+const camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, nearPlane, farPlane);
 const renderer = new THREE.WebGLRenderer();
 const backgroundColor = "#808080";
-
 
 const RotateObject3D = ( {selectedFileName }: { selectedFileName : string } ) => {
   let xSpeed = 0.00;
   let ySpeed = 0.00;
-  let zSpeed = 0.00;
 
   useEffect(() => {
     scene.clear();
     
-    camera.position.set(0, 0, 10);
+    camera.position.set(0, 0, R);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(backgroundColor);
     
 
     document.body.appendChild(renderer.domElement);
         
-    const ambientLight = new THREE.AmbientLight( 0xffffff );
-    scene.add( ambientLight );
+    const ambientLight = new THREE.AmbientLight(0xffffff);
+    scene.add(ambientLight);
 
     const loader = new OBJLoader();
     let object3D: THREE.Object3D;
@@ -61,18 +62,6 @@ const RotateObject3D = ( {selectedFileName }: { selectedFileName : string } ) =>
       }
     );
 
-    const setRotationSpeed = () => {
-      if (Coordinates.isSet) {
-        const {x: xCoord, y: yCoord} = CoordinateTransformer.screenToCartesianCoordinates(Coordinates.x, Coordinates.y,
-                                                              window.innerWidth, window.innerHeight);
-        const {xSpeed: x, ySpeed: y, zSpeed: z} = CoordinateTransformer.twoDimensionalToThreeDimensional(
-                                                              xCoord, yCoord, rotationSpeedFactor);
-        xSpeed = x;
-        ySpeed = y;
-        zSpeed = z;
-      }
-    }
-
     const updateCameraToFitObject = (camera: THREE.PerspectiveCamera, object: THREE.Object3D<THREE.Object3DEventMap>) => {
       const box = new THREE.Box3().setFromObject(object);
       const size = box.getSize(new THREE.Vector3()).length();
@@ -87,21 +76,32 @@ const RotateObject3D = ( {selectedFileName }: { selectedFileName : string } ) =>
 
       camera.lookAt(center);
     };
-    
 
+    const setRotationSpeed = () => {
+      if (Coordinates.isSet) {
+        const {x: xCoord, y: yCoord} = CoordinatesHandler.screenToCartesianCoordinates(Coordinates.x, Coordinates.y,
+          window.innerWidth, window.innerHeight);;
+
+        xSpeed = CoordinatesHandler.cartesianToLogarithmicSpeedCoordinate(yCoord, coordinateScaleFactor, Math.E,
+          rotationSpeedFactor);
+
+        ySpeed = CoordinatesHandler.cartesianToLogarithmicSpeedCoordinate(xCoord, coordinateScaleFactor, Math.E,
+          rotationSpeedFactor);
+      }
+    }
+    
     const animate = () => {
-      setRotationSpeed();
       requestAnimationFrame(animate);
       if (object3D) {
+          setRotationSpeed();
           object3D.rotation.x -= xSpeed;
           object3D.rotation.y -= ySpeed;
-          object3D.rotation.z -= zSpeed;
         }
       renderer.render(scene, camera);
     }
     
     animate();
-  }, [selectedFileName ]);
+  }, [selectedFileName]);
 
   return null;
 }
