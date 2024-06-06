@@ -16,28 +16,28 @@ const products = [
         "fileName": "forklift"
     },
     {
-        "productName": "Bottle",
-        "fileName": "bottle"
+        "productName": "Duck",
+        "fileName": "12248_Bird_v1_L2"
     },
     {
-        "productName": "Teapot",
-        "fileName": "teapot"
+        "productName": "Turtle",
+        "fileName": "10042_Sea_Turtle_V2_iterations-2"
     },
     {
-        "productName": "Chair",
-        "fileName": "chair"
+        "productName": "Camera",
+        "fileName": "10124_SLR_Camera_SG_V1_Iteration2"
     },
     {
-        "productName": "Table",
-        "fileName": "table"
+        "productName": "Dolphin",
+        "fileName": "10014_dolphin_v2_max2011_it2"
     },
     {
-        "productName": "Lamp",
-        "fileName": "lamp"
+        "productName": "Monkey",
+        "fileName": "12958_Spider_Monkey_v1_l2"
     },
     {
-        "productName": "Sofa",
-        "fileName": "sofa"
+        "productName": "Bicycle",
+        "fileName": "11717_bicycle_v2_L1"
     }
 ]
 
