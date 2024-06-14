@@ -5,7 +5,7 @@ export class Coordinates {
     static y: number;
     static isSet: boolean = false;
 
-    static setCurrentCoordinates({x, y}: EyeCoordinates) {
+    static setCurrentCoordinates({ x, y }: EyeCoordinates) {
         Coordinates.x = x;
         Coordinates.y = y;
         Coordinates.isSet = true;

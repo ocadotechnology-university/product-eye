@@ -8,7 +8,7 @@ import 'src/App.css';
 
 const App = () => {
   const [showCalibration, setShowCalibration] = useState(true);
-  const [selectedFileName , setSelectedFileName] = useState('');
+  const [selectedFileName, setSelectedFileName] = useState('');
 
   const handleFinishCalibration = useCallback(() => {
     setShowCalibration(false);

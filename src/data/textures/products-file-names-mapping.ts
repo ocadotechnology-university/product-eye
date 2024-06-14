@@ -12,7 +12,7 @@ const productsFileNamesMapping = [
         "fileName": "tree"
     },
     {
-        "productName": "forklift",
+        "productName": "Forklift",
         "fileName": "forklift"
     },
     {

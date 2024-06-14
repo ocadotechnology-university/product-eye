@@ -10,9 +10,7 @@ const fieldOfView = 45;
 const nearPlane = 0.1;
 const farPlane = 1000;
 
-const r = 12;
-const rotationSpeedFactor = 0.01;
-const coordinateScaleFactor = 0.22;
+const zAxisTranslationOfObject = 12;
 const aspectRatio = window.innerWidth / window.innerHeight;
 
 const scene = new THREE.Scene();
@@ -25,15 +23,19 @@ const loader = new OBJLoader();
 const mtlLoader = new MTLLoader();
 let object3D: THREE.Object3D;
 
+const rotationSpeedFactor = 0.004;
+const logarithmBase = 6;
+const coordinatesHandler = new CoordinatesHandler(window.innerWidth, window.innerHeight);
+
+let xSpeed = 0.00;
+let ySpeed = 0.00;
+
 type Props = {
   selectedFileName: string
 }
 
 const RotateObject3D = ({ selectedFileName }: Props) => {
-  let xSpeed = 0.00;
-  let ySpeed = 0.00;
-
-  camera.position.set(0, 0, r);
+  camera.position.set(0, 0, zAxisTranslationOfObject);
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setClearColor(backgroundColor);
 
@@ -64,19 +66,6 @@ const RotateObject3D = ({ selectedFileName }: Props) => {
       }
     );
 
-    const setRotationSpeed = () => {
-      if (Coordinates.isSet) {
-        const { x: xCoord, y: yCoord } = CoordinatesHandler.screenToCartesianCoordinates(Coordinates.x, Coordinates.y,
-          window.innerWidth, window.innerHeight);
-    
-        xSpeed = CoordinatesHandler.cartesianToLogarithmicSpeedCoordinate(yCoord, coordinateScaleFactor, Math.E,
-          rotationSpeedFactor);
-    
-        ySpeed = CoordinatesHandler.cartesianToLogarithmicSpeedCoordinate(xCoord, coordinateScaleFactor, Math.E,
-          rotationSpeedFactor);
-      }
-    };
-
     const animate = () => {
       requestAnimationFrame(animate);
       if (object3D) {
@@ -92,6 +81,17 @@ const RotateObject3D = ({ selectedFileName }: Props) => {
 
   return null;
 }
+
+const setRotationSpeed = () => {
+  if (Coordinates.isSet) {
+    const { x: xCoord, y: yCoord } = coordinatesHandler.screenToCartesianCoordinates(Coordinates.x, Coordinates.y);
+    const { xSpeed: xS, ySpeed: yS } = coordinatesHandler.cartesianToLogarithmicSpeedCoordinates(xCoord, yCoord,
+      logarithmBase, rotationSpeedFactor);
+
+    xSpeed = xS;
+    ySpeed = yS;
+  }
+};
 
 const updateCameraToFitObject = (camera: THREE.PerspectiveCamera, object: THREE.Object3D<THREE.Object3DEventMap>) => {
   const box = new THREE.Box3().setFromObject(object);
