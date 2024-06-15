@@ -1,4 +1,4 @@
-const products = [
+const productsFileNamesMapping = [
     {
         "productName": "Apple",
         "fileName": "apple"
@@ -41,4 +41,4 @@ const products = [
     }
 ]
 
-export default products;
+export default productsFileNamesMapping;

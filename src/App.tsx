@@ -1,29 +1,29 @@
-import { SetStateAction, useState } from 'react';
-import EyeTracker from './EyeTracker';
-import RotateObject3D from './RotateObject3D';
-import Calibration from './Calibration';
-import SideBar from './SideBar';
-import products from './products';
-import './App.css';
+import { SetStateAction, useCallback, useState } from 'react';
+import EyeTracker from 'src/EyeTracker';
+import RotateObject3D from 'src/RotateObject3D';
+import Calibration from 'src/components/calibration/calibration';
+import { SideBar } from 'src/components/side-bar';
+import productsFileNamesMapping from 'src/data/textures/products-file-names-mapping';
+import 'src/App.css';
 
 const App = () => {
   const [showCalibration, setShowCalibration] = useState(true);
   const [selectedFileName , setSelectedFileName] = useState('');
 
-  const handleFinishCalibration = () => {
+  const handleFinishCalibration = useCallback(() => {
     setShowCalibration(false);
-  };
+  }, []);
 
-  const handleProductSelect = (fileName: SetStateAction<string>) => { 
+  const handleProductSelect = useCallback((fileName: SetStateAction<string>) => {
     setSelectedFileName(fileName);
-  };
+  }, []);
 
   return (
     <>
       <EyeTracker />
       {showCalibration && <Calibration onFinishCalibration={handleFinishCalibration} />}
       {!showCalibration && <RotateObject3D selectedFileName={selectedFileName} />}
-      {!showCalibration && <SideBar products={products} onProductSelect={handleProductSelect} />}
+      {!showCalibration && <SideBar products={productsFileNamesMapping} onProductSelect={handleProductSelect} />}
     </>
   );
 };

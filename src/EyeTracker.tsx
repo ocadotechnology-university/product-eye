@@ -1,43 +1,26 @@
 import { useEffect } from 'react';
-import { Coordinates } from './Coordinates';
+import { Coordinates } from 'src/Coordinates';
+import { EyeCoordinates } from "src/model/eye-coordinates.ts";
 
 const EyeTracker = () => {
-    useEffect(() => {
-        webgazer.showVideoPreview(true)
-        webgazer
-        .setRegression('ridge')
-        .saveDataAcrossSessions(true)
-        .showFaceOverlay(false)
-        .showFaceFeedbackBox(true)
-        .showPredictionPoints(true)
-        .applyKalmanFilter(true)
+  useEffect(() => {
+    webgazer
+      .showVideoPreview(true)
+      .setRegression('ridge')
+      .saveDataAcrossSessions(true)
+      .showFaceOverlay(false)
+      .showFaceFeedbackBox(true)
+      .showPredictionPoints(true)
+      .applyKalmanFilter(true)
 
-        webgazer.setGazeListener((data, elapsedTime) => {
-            if (data == null) return;
-            Coordinates.setCurrentCoordinates(data.x, data.y);
-        }).begin();
-        
-        
-        /*
-        // NEW CODE
-        webgazer.setRegression('ridge')
-        //.setTracker('clmtrackr')
-        .setGazeListener(function(data, clock) {
-            if (data == null) return;
-                Coordinates.setCurrentCoordinates(data.x, data.y);
-        })
-        .saveDataAcrossSessions(true)
-        .showFaceOverlay(false)
-        .showFaceFeedbackBox(true)
-        .showPredictionPoints(true)
-        .showVideoPreview(true)
-        .applyKalmanFilter(true)
-        .begin();
-        */
+    webgazer.setGazeListener((data: EyeCoordinates) => {
+      if (data != null) {
+        Coordinates.setCurrentCoordinates(data);
+      }
+    }).begin();
+  }, []); // Empty dependency array to run once on mount
 
-    }, []); // Empty dependency array to run once on mount
-
-    return null;
+  return null;
 };
 
 export default EyeTracker;

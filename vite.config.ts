@@ -7,14 +7,31 @@ export default defineConfig({
   define: {
     global: 'globalThis'
   },
+  resolve: {
+    alias:{
+      src: '/src'
+    }
+  },
   test: {
     globals: true,
     watch: false,
     environment: 'jsdom',
     css: true,
-    setupFiles: './src/setupTests.ts'
+    setupFiles: './src/setupTests.ts',
+    coverage: {
+      enabled: true,
+      provider: 'istanbul',
+      reporter: ['text'],
+      include: [
+        './src/**/*.{js,jsx,ts,tsx}'
+      ],
+      exclude: [
+        './node_modules'
+      ]
+    }
   },
   server: {
-    open: true
+    open: true,
+    port: 3000
   }
 })
