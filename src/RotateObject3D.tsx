@@ -10,7 +10,7 @@ const fieldOfView = 45;
 const nearPlane = 0.1;
 const farPlane = 1000;
 
-const R = 12;
+const r = 12;
 const rotationSpeedFactor = 0.01;
 const coordinateScaleFactor = 0.22;
 const aspectRatio = window.innerWidth / window.innerHeight;
@@ -19,6 +19,11 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(fieldOfView, aspectRatio, nearPlane, farPlane);
 const renderer = new THREE.WebGLRenderer();
 const backgroundColor = "#808080";
+const ambientLight = new THREE.AmbientLight(0xffffff);
+
+const loader = new OBJLoader();
+const mtlLoader = new MTLLoader();
+let object3D: THREE.Object3D;
 
 type Props = {
   selectedFileName: string
@@ -28,24 +33,20 @@ const RotateObject3D = ({ selectedFileName }: Props) => {
   let xSpeed = 0.00;
   let ySpeed = 0.00;
 
+  camera.position.set(0, 0, r);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(backgroundColor);
+
+  document.body.appendChild(renderer.domElement);
+
+  const mtlFileName = `./${selectedFileName}.mtl`;
+  const objFileName = `./${selectedFileName}.obj`;
+
+
   useEffect(() => {
     scene.clear();
 
-    camera.position.set(0, 0, R);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(backgroundColor);
-
-    document.body.appendChild(renderer.domElement);
-
-    const ambientLight = new THREE.AmbientLight(0xffffff);
     scene.add(ambientLight);
-
-    const loader = new OBJLoader();
-    let object3D: THREE.Object3D;
-    const mtlLoader = new MTLLoader();
-
-    const mtlFileName = `./${selectedFileName}.mtl`;
-    const objFileName = `./${selectedFileName}.obj`;
 
     mtlLoader.load(
       mtlFileName,
@@ -67,14 +68,14 @@ const RotateObject3D = ({ selectedFileName }: Props) => {
       if (Coordinates.isSet) {
         const { x: xCoord, y: yCoord } = CoordinatesHandler.screenToCartesianCoordinates(Coordinates.x, Coordinates.y,
           window.innerWidth, window.innerHeight);
-
+    
         xSpeed = CoordinatesHandler.cartesianToLogarithmicSpeedCoordinate(yCoord, coordinateScaleFactor, Math.E,
           rotationSpeedFactor);
-
+    
         ySpeed = CoordinatesHandler.cartesianToLogarithmicSpeedCoordinate(xCoord, coordinateScaleFactor, Math.E,
           rotationSpeedFactor);
       }
-    }
+    };
 
     const animate = () => {
       requestAnimationFrame(animate);

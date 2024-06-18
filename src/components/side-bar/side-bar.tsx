@@ -28,9 +28,9 @@ export const SideBar = ({ products, onProductSelect }: Props) => {
 const renderProducts = ({ products, onProductSelect }: Props) => {
   return products.map((product) => {
     return (
-      <Product key={product.fileName} onClick={() => onProductSelect(product.fileName)}>
+      <ProductStyle key={product.fileName} onClick={() => onProductSelect(product.fileName)}>
         <ProductSpan>{product.productName}</ProductSpan>
-      </Product>
+      </ProductStyle>
     );
   });
 }
@@ -68,7 +68,7 @@ const ProductSpan = styled.span`
     transition: background 0.5s ease;
 `;
 
-const Product = styled.div`
+const ProductStyle = styled.div`
     width: 100%;
     height: 100px;
     margin: 10px auto;

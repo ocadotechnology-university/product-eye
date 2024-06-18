@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import  CooordinateTransformer from '../CoordinateTransformer';
+import  CooordinateTransformer from 'src/CoordinatesHandler';
 
 
 describe('Screen coordinates to cartesian coordinates', () => {
