@@ -1,0 +1,1 @@
+export { SideBar } from 'src/components/side-bar/side-bar';

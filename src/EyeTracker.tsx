@@ -1,23 +1,26 @@
 import { useEffect } from 'react';
-import './App.css'
-import { Coordinates } from './Coordinates';
+import { Coordinates } from 'src/Coordinates';
+import { EyeCoordinates } from "src/model/eye-coordinates.ts";
 
 const EyeTracker = () => {
-    useEffect(() => {
-        webgazer.showFaceOverlay(false);
-        webgazer.showFaceFeedbackBox(false);
-        webgazer.showVideo(false);
-        webgazer.setRegression('ridge');
+  useEffect(() => {
+    webgazer
+      .showVideoPreview(true)
+      .setRegression('ridge')
+      .saveDataAcrossSessions(true)
+      .showFaceOverlay(false)
+      .showFaceFeedbackBox(true)
+      .showPredictionPoints(true)
+      .applyKalmanFilter(true)
 
-        webgazer.setGazeListener(function(data, elapsedTime) {
-            if (data == null) {
-                return;
-            }
-            Coordinates.setCurrentCoordinates(data.x, data.y);
-        }).begin();
-      })
+    webgazer.setGazeListener((data: EyeCoordinates) => {
+      if (data != null) {
+        Coordinates.setCurrentCoordinates(data);
+      }
+    }).begin();
+  }, []); // Empty dependency array to run once on mount
 
-    return null;
+  return null;
 };
 
 export default EyeTracker;
