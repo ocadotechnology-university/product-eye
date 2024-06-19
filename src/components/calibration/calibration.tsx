@@ -15,7 +15,7 @@ const Calibration = ({ onFinishCalibration }: Props) => {
 
   const handleClick = (index: number) => {
     if (clickCount[index] < MAX_CLICKS) {
-      setClickCount(prevState => ({...prevState, [index]: prevState[index] + 1}) );
+      setClickCount(prevState => ({ ...prevState, [index]: prevState[index] + 1 }));
       setTotalClicks(totalClicks + 1);
     }
   };
@@ -37,34 +37,34 @@ const Calibration = ({ onFinishCalibration }: Props) => {
   return (
     <section id='calibration' style={{ display: getDisplay(totalClicks) }}>
       <div className="calibrationDot"
-           style={{
-             background: getDotColor(0)
-           }}
-           onClick={() => handleClick(0)}
+        style={{
+          background: getDotColor(0)
+        }}
+        onClick={() => handleClick(0)}
       ></div>
       <div className="calibrationDot"
-           style={{
-             background: getDotColor(1)
-           }}
-           onClick={() => handleClick(1)}
+        style={{
+          background: getDotColor(1)
+        }}
+        onClick={() => handleClick(1)}
       ></div>
       <div className="calibrationDot"
-           style={{
-             background: getDotColor(2)
-           }}
-           onClick={() => handleClick(2)}
+        style={{
+          background: getDotColor(2)
+        }}
+        onClick={() => handleClick(2)}
       ></div>
       <div className="calibrationDot"
-           style={{
-             background: getDotColor(3)
-           }}
-           onClick={() => handleClick(3)}
+        style={{
+          background: getDotColor(3)
+        }}
+        onClick={() => handleClick(3)}
       ></div>
       <div className="calibrationDot"
-           style={{
-             background: getDotColor(4)
-           }}
-           onClick={() => handleClick(4)}
+        style={{
+          background: getDotColor(4)
+        }}
+        onClick={() => handleClick(4)}
       ></div>
     </section>
   );
