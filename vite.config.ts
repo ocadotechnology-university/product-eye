@@ -17,6 +17,7 @@ export default defineConfig({
     watch: false,
     environment: 'jsdom',
     css: true,
+<<<<<<< HEAD
     setupFiles: './src/setupTests.ts',
     coverage: {
       enabled: true,
@@ -33,5 +34,11 @@ export default defineConfig({
   server: {
     open: true,
     port: 3000
+=======
+    setupFiles: './src/setupTests.ts'
+  },
+  server: {
+    open: true,
+>>>>>>> origin/iter3-rotation-calculator
   }
 })
