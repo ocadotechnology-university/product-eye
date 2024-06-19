@@ -23,7 +23,7 @@ const loader = new OBJLoader();
 const mtlLoader = new MTLLoader();
 let object3D: THREE.Object3D;
 
-const rotationSpeedFactor = 0.004;
+const rotationSpeedFactor = 0.0075;
 const logarithmBase = 6;
 const coordinatesHandler = new CoordinatesHandler(window.innerWidth, window.innerHeight);
 
