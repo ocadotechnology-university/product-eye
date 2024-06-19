@@ -11,7 +11,7 @@ npm install
 ```
 
 ## Tests
-If you want run test youc have to write:
+If you want run tests, you have to write:
 
 ```bash
 npm test
