@@ -66,17 +66,23 @@ const RotateObject3D = ({ selectedFileName }: Props) => {
       }
     );
 
+    let animationId: number;
     const animate = () => {
       requestAnimationFrame(animate);
       if (object3D) {
         setRotationSpeed();
-        object3D.rotation.x -= xSpeed;
+        // object3D.rotation.x -= xSpeed;
         object3D.rotation.y -= ySpeed;
       }
       renderer.render(scene, camera);
     }
 
     animate();
+    return () => {
+      if(animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    }
   }, [selectedFileName]);
 
   return null;

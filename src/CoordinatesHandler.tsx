@@ -1,7 +1,3 @@
-const calculateLog = (x: number, base: number) => {
-  return Math.log(Math.abs(x) + 1) / Math.log(base) * Math.sign(x);
-}
-
 class CoordinatesHandler {
   halfScreenWidth: number;
   halfScreenHeight: number;
@@ -11,12 +7,14 @@ class CoordinatesHandler {
     this.halfScreenWidth = screenWidth / 2;
     this.halfScreenHeight = screenHeight / 2;
     this.minHalfDimension = Math.min(this.halfScreenWidth, this.halfScreenHeight);
-  };
+  }
 
-
-  cartesianToLogarithmicSpeedCoordinates = (cartesianX: number, cartesianY: number,
-    logBase: number, rotationSpeedFactor: number) => {
-
+  cartesianToLogarithmicSpeedCoordinates = (
+    cartesianX: number,
+    cartesianY: number,
+    logBase: number,
+    rotationSpeedFactor: number
+  ) => {
     const xPercent = 100 * cartesianX / this.minHalfDimension;
     const yPercent = 100 * cartesianY / this.minHalfDimension;
 
@@ -35,6 +33,10 @@ class CoordinatesHandler {
       y: cartesianY
     };
   };
+}
+
+const calculateLog = (x: number, base: number) => {
+  return Math.log(Math.abs(x) + 1) / Math.log(base) * Math.sign(x);
 }
 
 export default CoordinatesHandler;
